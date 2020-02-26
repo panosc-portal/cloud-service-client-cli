@@ -18,7 +18,7 @@ export function mapImage(image: Image): any {
     Id: image.id,
     Name: image.name,
     Type: image.environmentType,
-    Protocols: image.protocols.map(protocol => `${protocol.name} (${protocol.port})`).join(', ')
+    Protocols: image.protocols.map(protocol => `${protocol.protocol.name} (${protocol.port})`).join(', ')
   }
 }
 

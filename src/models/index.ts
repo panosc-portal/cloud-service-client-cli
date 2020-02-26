@@ -1,5 +1,6 @@
 export * from './flavour.model'
 export * from './image.model'
+export * from './image-protocol.model'
 export * from './instance.model'
 export * from './instance-member.model'
 export * from './instance-state.model'
