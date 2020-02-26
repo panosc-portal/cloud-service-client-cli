@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import Axios, { AxiosInstance } from 'axios';
 import { Provider } from '../models/provider.model';
-import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto } from '../models';
+import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto, Instance, InstanceCreatorDto } from '../models';
 
 export abstract class BaseCommand extends Command {
 
@@ -46,6 +46,16 @@ export abstract class BaseCommand extends Command {
     return response.data;
   }
 
+  async getProviderImages(providerId: number): Promise<Image[]> {
+    const response = await this.apiClient.get(`providers/${providerId}/images`);
+    return response.data;
+  }
+
+  async getProviderFlavours(providerId: number): Promise<Flavour[]> {
+    const response = await this.apiClient.get(`providers/${providerId}/flavours`);
+    return response.data;
+  }
+
   async getPlans(): Promise<Plan[]> {
     const response = await this.apiClient.get('plans');
     return response.data;
@@ -61,13 +71,18 @@ export abstract class BaseCommand extends Command {
     return response.data;
   }
 
-  async getProviderImages(providerId: number): Promise<Image[]> {
-    const response = await this.apiClient.get(`providers/${providerId}/images`);
+  async getInstances(): Promise<Instance[]> {
+    const response = await this.apiClient.get('instances');
     return response.data;
   }
 
-  async getProviderFlavours(providerId: number): Promise<Flavour[]> {
-    const response = await this.apiClient.get(`providers/${providerId}/flavours`);
+  async createInstance(instance: InstanceCreatorDto): Promise<Instance> {
+    const response = await this.apiClient.post('instances', instance);
+    return response.data;
+  }
+
+  async deleteInstance(instanceId: number): Promise<boolean> {
+    const response = await this.apiClient.delete(`instances/${instanceId}`);
     return response.data;
   }
 
