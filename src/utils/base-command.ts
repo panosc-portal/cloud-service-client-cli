@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import Axios, { AxiosInstance } from 'axios';
 import { Provider } from '../models/provider.model';
-import { ProviderCreatorDto, Image, Flavour } from '../models';
+import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto } from '../models';
 
 export abstract class BaseCommand extends Command {
 
@@ -43,6 +43,21 @@ export abstract class BaseCommand extends Command {
 
   async deleteProvider(providerId: number): Promise<boolean> {
     const response = await this.apiClient.delete(`providers/${providerId}`);
+    return response.data;
+  }
+
+  async getPlans(): Promise<Plan[]> {
+    const response = await this.apiClient.get('plans');
+    return response.data;
+  }
+
+  async createPlan(plan: PlanCreatorDto): Promise<Plan> {
+    const response = await this.apiClient.post('plans', plan);
+    return response.data;
+  }
+
+  async deletePlan(planId: number): Promise<boolean> {
+    const response = await this.apiClient.delete(`plans/${planId}`);
     return response.data;
   }
 

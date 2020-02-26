@@ -25,7 +25,7 @@ export default class ProviderImagesCommand extends BaseCommand {
     const questions = [{
       type: 'list',
       name: 'providerId',
-      message: 'Choose a provider to delete',
+      message: 'Choose a provider',
       filter: Number,
       choices: providers.map(provider => {
         return {
