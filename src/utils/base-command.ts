@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import Axios, { AxiosInstance } from 'axios';
 import { Provider } from '../models/provider.model';
-import { ProviderCreatorDto, Image } from '../models';
+import { ProviderCreatorDto, Image, Flavour } from '../models';
 
 export abstract class BaseCommand extends Command {
 
@@ -48,6 +48,11 @@ export abstract class BaseCommand extends Command {
 
   async getProviderImages(providerId: number): Promise<Image[]> {
     const response = await this.apiClient.get(`providers/${providerId}/images`);
+    return response.data;
+  }
+
+  async getProviderFlavours(providerId: number): Promise<Flavour[]> {
+    const response = await this.apiClient.get(`providers/${providerId}/flavours`);
     return response.data;
   }
 
