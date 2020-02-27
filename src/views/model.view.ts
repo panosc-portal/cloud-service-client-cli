@@ -4,8 +4,10 @@ export function mapInstance(instance: Instance): any {
   return {
     Id: instance.id,
     Name: instance.name,
-    CloudId: instance.cloudId,
+    'Cloud Provide': instance.plan.provider.name,
+    'Cloud Id': instance.cloudId,
     Status: instance.state.status,
+    Plan: instance.plan.name,
     Image: instance.image.name,
     Flavour: `${instance.flavour.name} (${instance.flavour.cpu} Cores, ${instance.flavour.memory}MB RAM)`,
     Host: instance.hostname,

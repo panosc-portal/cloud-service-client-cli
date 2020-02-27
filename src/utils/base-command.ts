@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import Axios, { AxiosInstance } from 'axios';
 import { Provider } from '../models/provider.model';
-import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto, Instance, InstanceCreatorDto } from '../models';
+import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto, Instance, InstanceCreatorDto, InstanceActionDto } from '../models';
 
 export abstract class BaseCommand extends Command {
 
@@ -83,6 +83,24 @@ export abstract class BaseCommand extends Command {
 
   async deleteInstance(instanceId: number): Promise<boolean> {
     const response = await this.apiClient.delete(`instances/${instanceId}`);
+    return response.data;
+  }
+
+  async startInstance(instanceId: number): Promise<Instance> {
+    const instanceAction: InstanceActionDto = new InstanceActionDto({type: 'START'});
+    const response = await this.apiClient.post(`instances/${instanceId}/actions`, instanceAction);
+    return response.data;
+  }
+
+  async stopInstance(instanceId: number): Promise<Instance> {
+    const instanceAction: InstanceActionDto = new InstanceActionDto({type: 'SHUTDOWN'});
+    const response = await this.apiClient.post(`instances/${instanceId}/actions`, instanceAction);
+    return response.data;
+  }
+
+  async rebootInstance(instanceId: number): Promise<Instance> {
+    const instanceAction: InstanceActionDto = new InstanceActionDto({type: 'REBOOT'});
+    const response = await this.apiClient.post(`instances/${instanceId}/actions`, instanceAction);
     return response.data;
   }
 
