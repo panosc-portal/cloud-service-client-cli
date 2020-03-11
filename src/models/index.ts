@@ -1,3 +1,4 @@
+export * from './authorisation-token.model'
 export * from './flavour.model'
 export * from './image.model'
 export * from './image-protocol.model'

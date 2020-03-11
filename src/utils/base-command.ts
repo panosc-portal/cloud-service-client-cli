@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import Axios, { AxiosInstance } from 'axios';
 import { Provider } from '../models/provider.model';
-import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto, Instance, InstanceCreatorDto, InstanceActionDto } from '../models';
+import { ProviderCreatorDto, Image, Flavour, Plan, PlanCreatorDto, Instance, InstanceCreatorDto, InstanceActionDto, AuthorisationToken } from '../models';
 
 export abstract class BaseCommand extends Command {
 
@@ -101,6 +101,11 @@ export abstract class BaseCommand extends Command {
   async rebootInstance(instanceId: number): Promise<Instance> {
     const instanceAction: InstanceActionDto = new InstanceActionDto({type: 'REBOOT'});
     const response = await this.apiClient.post(`instances/${instanceId}/actions`, instanceAction);
+    return response.data;
+  }
+
+  async getInstanceAuthorisationToken(instanceId: number): Promise<AuthorisationToken> {
+    const response = await this.apiClient.post(`instances/${instanceId}/token`);
     return response.data;
   }
 
