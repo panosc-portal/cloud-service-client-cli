@@ -64,20 +64,6 @@ export default class InstanceAddCommand extends BaseCommand {
       }
     }, {
       type: 'input',
-      name: 'firstName',
-      message: 'Enter a first name for the account',
-      validate: function (value: string) {
-        return (value != null) || 'The first name must not be null'
-      }
-    }, {
-      type: 'input',
-      name: 'lastName',
-      message: 'Enter a surname for the account',
-      validate: function (value: string) {
-        return (value != null) || 'The surname must not be null'
-      }
-    }, {
-      type: 'input',
       name: 'userId',
       message: 'Enter a user ID for the account',
       default: 1,
@@ -112,7 +98,7 @@ export default class InstanceAddCommand extends BaseCommand {
     }];
 
     try {
-      const {name, description, planId, userId, username, firstName, lastName, uid, gid, homePath, email} = await inquirer.prompt(questions);
+      const {name, description, planId, userId, username, uid, gid, homePath, email} = await inquirer.prompt(questions);
 
       const instanceCreator = new InstanceCreatorDto({
         name: name,
@@ -121,8 +107,6 @@ export default class InstanceAddCommand extends BaseCommand {
         account: new AccountCreatorDto({
           userId: userId,
           username: username,
-          firstName: firstName,
-          lastName: lastName,
           uid: uid,
           gid: gid,
           homePath: homePath,

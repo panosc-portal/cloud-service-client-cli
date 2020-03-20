@@ -2,8 +2,6 @@
 export class AccountCreatorDto {
   userId: number;
   username: string;
-  firstName?: string;
-  lastName?: string;
   uid: number;
   gid: number;
   homePath: string;
